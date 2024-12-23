@@ -15,20 +15,24 @@ function AvatarUpload() {
 
   return (
     <div className="avatar-upload w-32 h-32 bg-gray-200 rounded-full overflow-hidden">
-      <input 
-        type="file" 
-        id="avatar-input" 
-        accept="image/*" 
-        className="hidden" 
-        onChange={handleFileChange}
-      />
-      <img 
-        src={avatar} 
-        alt="Pet Avatar" 
-        className="w-full h-full object-cover"
-      />
-      <div className="upload-overlay">
-        <i className="fas fa-camera text-white text-2xl"></i>
+      <div>
+        <input 
+          type="file" 
+          id="avatar-input" 
+          accept="image/*" 
+          className="hidden" 
+          onChange={handleFileChange}
+        />
+        <label htmlFor="avatar-input">
+          <img 
+            src={avatar} 
+            alt="Pet Avatar" 
+            className="w-full h-full object-cover"
+          />
+          <div className="upload-overlay">
+            <i className="fas fa-camera text-white text-2xl"></i>
+          </div>
+        </label>
       </div>
     </div>
   );
