@@ -12,9 +12,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar>
+        
+        <Navbar />
         <Routes>
-          // Removed redundant Route for Navbar
           <Route path="/profile" element={<Profile />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/blog" element={<Blog />} />
@@ -22,7 +22,6 @@ function App() {
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/reminders" element={<Reminders />} />
         </Routes>
-        </Navbar>
       </div>
     </Router>
   );
