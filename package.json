@@ -19,6 +19,9 @@
     "keywords": [],
     "author": "",
     "license": "MIT",
+    "dependencies": {
+        "react-router-dom": "^7.0.2"
+    },
     "devDependencies": {
         "concurrently": "^8.2.2",
         "wait-on": "^7.2.0"
