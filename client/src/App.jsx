@@ -7,6 +7,7 @@ import Blog from './components/Blog/Blog';
 import Avatar from './components/AvatarUpload/AvatarUpload';
 import Recommendations from './components/Recommendations/Recommendations';
 import Reminders from './components/Reminders/Reminders';
+
 function App() {
   return (
     <Router>

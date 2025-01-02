@@ -1,77 +1,87 @@
-import React, { useState, useRef } from 'react';
-import './Profile.css';
+import React, { useState } from "react";
+import "./Profile.css";
+import cameraIcon from "../../assets/White_camera_icon.png";
 
-function Profile() {
-  const [avatar, setAvatar] = useState("https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc");
-  const fileInputRef = useRef(null);
+const Profile = () => {
+  const [profilePhoto, setProfilePhoto] = useState("default-avatar.png");
 
-  const handleAvatarClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handlePhotoUpload = (event) => {
+    const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => setAvatar(e.target.result);
+      reader.onload = (e) => {
+        setProfilePhoto(e.target.result);
+      };
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <section id="profile" className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <div className="flex items-start space-x-6">
-        <div className="avatar-upload">
-          <input 
-            type="file"
-            ref={fileInputRef}
-            accept="image/*"
-            onChange={handleFileChange}
-            style={{ display: 'none' }}
-          />
-          <img 
-            src={avatar} 
-            alt="Pet Avatar" 
-          />
-          <div className="upload-overlay" onClick={handleAvatarClick}>
-            <i className="fas fa-camera text-white text-2xl"></i>
+    <div className="profile">
+      <nav className="profile-nav">
+        <a href="/profile">Profile</a>
+        <a href="/calendar">Calendar</a>
+        <a href="/blog">Blog</a>
+        <a href="/recommendations">Recommendations</a>
+      </nav>
+
+      <div className="profile-main">
+        <div className="profile-card">
+          <div className="profile-avatar">
+            <img
+              id="profile-photo"
+              src={profilePhoto}
+              alt="Profile Avatar"
+            />
+            <div className="upload-overlay">
+              <label htmlFor="upload-input">
+                <img 
+                  src={cameraIcon} 
+                  alt="Upload Camera Icon" 
+                  className="camera-icon" // Add this class
+                />
+              </label>
+              <input
+                id="upload-input"
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoUpload}
+                style={{ display: "none" }}
+              />
+            </div>
+          </div>
+          <div className="profile-info">
+            <h2>Max</h2>
+            <p>Seattle, WA</p>
+            <div className="shot-records">
+              <h3>Shot Records</h3>
+              <p>Rabies: Valid until 12/2024</p>
+              <p>DHPP: Valid until 06/2024</p>
+            </div>
+            <button className="edit-profile-button">Edit Profile</button>
           </div>
         </div>
-        
-        <div className="flex-1">
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 
-                className="text-2xl font-bold font-sans text-gray-800 mb-1" 
-                id="pet-name"
-                style={{
-                  fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif'
-                }}
-              >
-                Max
-              </h1>
-              <p className="text-gray-600" id="pet-location">Seattle, WA</p>
-            </div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-              Edit Profile
-            </button>
+
+        <div className="profile-details">
+          <div className="details-card">
+            <h4>Vet Appointments</h4>
+            <p>Annual Checkup</p>
+            <p>March 15, 2024</p>
           </div>
-          
-          <div className="mt-4">
-            <h2 className="text-lg font-semibold mb-2">Shot Records</h2>
-            <div className="space-y-2">
-              <div className="p-2 bg-gray-50 rounded">
-                <span className="font-medium">Rabies:</span> Valid until 12/2024
-              </div>
-              <div className="p-2 bg-gray-50 rounded">
-                <span className="font-medium">DHPP:</span> Valid until 06/2024
-              </div>
-            </div>
+          <div className="details-card">
+            <h4>Vaccinations Due</h4>
+            <p>Bordetella</p>
+            <p>April 1, 2024</p>
+          </div>
+          <div className="details-card">
+            <h4>Medications</h4>
+            <p>Heartworm Prevention</p>
+            <p>Monthly</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
-}
+};
 
 export default Profile;
