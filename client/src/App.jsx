@@ -12,7 +12,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        
         <Navbar />
         <Routes>
           <Route path="/profile" element={<Profile />} />
@@ -26,5 +25,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import whitePaw from '../../assets/White_paw_print.png'
 import './Navbar.css';
 
 const Navbar = () => {
@@ -8,7 +9,12 @@ const Navbar = () => {
       <nav>
         <div className="logo">
           <i className="fas fa-paw"></i>
-          <span>PetConnect</span>
+          <img 
+            src={whitePaw} 
+            alt="PetConnect Logo" 
+            className="w-4 h-4 object-contain"
+          />
+          <span className="logo-text">PetConnect</span>
         </div>
         <ul>
           <li><Link to="/">Home</Link></li>
