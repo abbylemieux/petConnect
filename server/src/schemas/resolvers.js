@@ -1,5 +1,7 @@
-import { Profile, Pet } from '../models/index.js';
-import { signToken } from '../utils/auth.js';
+import { Profile, Pet, Calendar } from '../models/index.js';
+import signToken from '../utils/auth.js';
+import bcrypt from 'bcrypt';
+import { AuthenticationError } from 'apollo-server-express';
 
 const resolvers = {
     Query: {
@@ -20,57 +22,91 @@ const resolvers = {
             if (context.user) {
                 return Profile.findOne({ _id: context.user._id }).populate('pets');
             }
-            throw new AuthenticationError('You need to be logged in!');
+            throw new AuthenticationError('Not logged in');
+        },
+        getAuthUrl: () => {
+            const scopes = [
+                'https://www.googleapis.com/auth/calendar'
+            ];
+
+            const authUrl = oauth2Client.generateAuthUrl({
+                access_type: 'offline',
+                scope: scopes,
+            });
+
+            return authUrl;
         }
     },
     Mutation: {
-        addProfile: async (parent, args) => {
-            const profile = await Profile.create(args);
-            const token = signToken(profile);
-            return { token, profile };
-        },
-        login: async (parent, { username, password }) => {
-            const profile = await Profile.findOne({ username });
-            if(!profile) {
-                throw AuthenticationError;
-            }
-            const correctPw = await profile.isCorrectPassword(password);
-            if (!correctPw) {
-                throw AuthenticationError;
-            }
-            const token = signToken(profile);
-            return { token, profile };
-        },
-        addPet: async (parent, args, context) => {
+        createPet: async (parent, { petData }, context) => {
             if (context.user) {
-                const pet = await Pet.create({ ...args, owner: context.user._id });
-                await Profile.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $addToSet: { pets: pet._id } }
-                );
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
-        removeProfile: async (parent, args, context) => {
-            if(context.user) {
-                return await Profile.findOneAndDelete({ _id: context.user._id });
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
-        removePet: async (parent, { petId }, context) => {
-            if (context.user) {
-                const pet = await Pet.findOneAndDelete({
-                    _id: petId,
-                    owner: context.user._id
+                const calendar = new Calendar();
+                await calendar.save();
+
+                const pet = new Pet({
+                    ...petData,
+                    owner: context.user._id,
+                    calendar: calendar._id
                 });
-                await Profile.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $pull: { pets: pet._id } }
-                );
+                await pet.save();
+
+                return pet;
             }
-            throw new AuthenticationError('You need to be logged in!');
+            throw new AuthenticationError('Not logged in');
+        },
+        addEvent: async (parent, { calendarId, eventData }, context) => {
+            if (context.user) {
+                const calendar = await Calendar.findById(calendarId);
+                if (!calendar) {
+                    throw new Error('Calendar not found');
+                }
+                return await calendar.addEvent(eventData);
+            }
+            throw new AuthenticationError('Not logged in');
+        },
+        removeEvent: async (parent, { calendarId, eventId }, context) => {
+            if (context.user) {
+                const calendar = await Calendar.findById(calendarId);
+                if (!calendar) {
+                    throw new Error('Calendar not found');
+                }
+                await calendar.removeEvent(eventId);
+                return true;
+            }
+            throw new AuthenticationError('Not logged in');
+        },
+        addProfile: async (parent, { username, email, password }) => {
+            const profile = new Profile({ username, email, password });
+            await profile.save();
+            const token = signToken(profile.username, profile._id);
+            return { token, profile };
+        },
+        login: async (parent, { email, password }) => {
+            const profile = await Profile.findOne({ email });
+            if (!profile) {
+                throw new AuthenticationError('Incorrect credentials');
+            }
+
+            const validPassword = await bcrypt.compare(password, profile.password);
+            if (!validPassword) {
+                throw new AuthenticationError('Incorrect credentials');
+            }
+
+            const token = signToken(profile.username, profile._id);
+            return { token, profile };
+        },
+        handleOAuth2Callback: async (parent, { code }) => {
+            try {
+                const { tokens } = await oauth2Client.getToken(code);
+                oauth2Client.setCredentials(tokens);
+                console.log('Refresh Token:', tokens.refresh_token);
+                return 'Authorization successful! You can close this tab.';
+            } catch (error) {
+                console.error('Error retrieving tokens:', error);
+                throw new Error('Error retrieving tokens');
+            }
         }
-    },
-}
+    }
+};
 
 export default resolvers;

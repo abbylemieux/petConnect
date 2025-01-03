@@ -27,21 +27,29 @@ const profileSchema = new Schema({
     },
     {
         toJSON: {
-            getters: true
+            getters: true,
+            virtuals: true,
+            transform: (doc, ret) => {
+                delete ret.password; // Remove password field from the output
+                return ret;
+            }
         },
         toObject: {
-            getters: true
+            getters: true,
+            virtuals: true,
+            transform: (doc, ret) => {
+                delete ret.password; // Remove password field from the output
+                return ret;
+            }
         }
     }
 );
 
 profileSchema.pre('save', async function(next) {
-    if (!this.isNew || !this.isModified('password')) {
-        next();
+    if (this.isModified('password') || this.isNew) {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
     }
-
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
     next();
 });
 
