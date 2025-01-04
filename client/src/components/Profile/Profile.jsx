@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
 import cameraIcon from "../../assets/White_camera_icon.png";
 import profileAvatar from "../../assets/vitor-fontes-SxLe8EHtC3U-unsplash.jpg";
@@ -64,7 +65,7 @@ const Profile = () => {
               <p>Rabies: Valid until 12/2024</p>
               <p>DHPP: Valid until 06/2024</p>
             </div>
-            <button className="edit-profile-button">Edit Profile</button>
+            <Link to="/edit profile details" className="edit-profile-button">Edit Profile</Link>
           </div>
         </div>
 
