@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
 import cameraIcon from "../../assets/White_camera_icon.png";
+import profileAvatar from "../../assets/vitor-fontes-SxLe8EHtC3U-unsplash.jpg";
 
 const Profile = () => {
-  const [profilePhoto, setProfilePhoto] = useState("default-avatar.png");
+  const [profilePhoto, setProfilePhoto] = useState(profileAvatar);
 
   const handlePhotoUpload = (event) => {
     const file = event.target.files[0];
@@ -27,18 +29,23 @@ const Profile = () => {
 
       <div className="profile-main">
         <div className="profile-card">
-          <div className="profile-avatar">
-            <img
-              id="profile-photo"
-              src={profilePhoto}
-              alt="Profile Avatar"
-            />
+          <div className="profile-avatar" style={{ backgroundColor: profilePhoto ? 'transparent' : '#ccc' }}>
+            {profilePhoto ? (
+              <img
+                id="profile-photo"
+                src={profilePhoto}
+                alt="Profile Avatar"
+              />
+            ) : (
+              <div className="default-avatar"></div>
+            )}
             <div className="upload-overlay">
               <label htmlFor="upload-input">
                 <img 
                   src={cameraIcon} 
                   alt="Upload Camera Icon" 
-                  className="camera-icon" // Add this class
+                  className="camera-icon"
+                  style={{ width: "16px", height: "16px" }}
                 />
               </label>
               <input
@@ -51,14 +58,14 @@ const Profile = () => {
             </div>
           </div>
           <div className="profile-info">
-            <h2>Max</h2>
+            <h2 id="pet-name" className="text-2xl font-bold">Max</h2>
             <p>Seattle, WA</p>
             <div className="shot-records">
               <h3>Shot Records</h3>
               <p>Rabies: Valid until 12/2024</p>
               <p>DHPP: Valid until 06/2024</p>
             </div>
-            <button className="edit-profile-button">Edit Profile</button>
+            <Link to="/edit profile details" className="edit-profile-button">Edit Profile</Link>
           </div>
         </div>
 
