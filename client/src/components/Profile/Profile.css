@@ -8,7 +8,20 @@ body {
   padding: 0;
 }
 
+/* Add fadeIn animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .profile {
+  animation: fadeIn 0.3s ease-in;
   max-width: 1200px; /* Increased from 800px */
   margin: 0 auto;
   padding: 20px;
@@ -36,6 +49,7 @@ body {
 
 /* Main Profile section */
 .profile-main {
+  animation: fadeIn 0.3s ease-in;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -141,6 +155,7 @@ body {
 }
 
 .details-card {
+  animation: fadeIn 0.3s ease-in;
   flex: 1;
   background-color: #fff;
   border-radius: 10px;
@@ -148,6 +163,7 @@ body {
   padding: 15px;
   margin: 0 10px;
   text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .details-card h4 {
@@ -173,3 +189,4 @@ body {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
