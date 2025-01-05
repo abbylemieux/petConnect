@@ -1,15 +1,15 @@
-/* General styles for the root container */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 80px; 
   text-align: center;
 }
 
 /* Styles for the logo */
 .logo {
   height: 6em;
-  padding: 1.5em;
+  padding: 0.5em; /* Reduce padding for better alignment */
   will-change: filter;
   transition: filter 300ms;
 }
@@ -21,6 +21,7 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+
 
 /* Keyframes for logo spin animation */
 @keyframes logo-spin {
@@ -42,8 +43,8 @@
 /* Styles for card component */
 .card {
   padding: 2em;
+  text-align: left; /* Align text content to the left */
 }
-
 /* Text styling for documentation links */
 .read-the-docs {
   color: #888;

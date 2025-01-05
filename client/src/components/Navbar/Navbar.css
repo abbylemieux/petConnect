@@ -1,21 +1,22 @@
 .navbar {
   background-color: #2563eb;
-  padding: 1.5rem rem;
-  height: 60px;
-  width: 100vw;
+  padding: 0 1.5rem; /* Remove excessive vertical padding */
+  height: 50px; /* Adjusted height */
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  margin: 0;
-  z-index: 1000; /* Ensure it stays on top */
+  z-index: 1000;
+}
+.main-content {
+  padding-top: 60px; 
 }
 
 nav {
   max-width: 1280px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Center items vertically within the navbar */
   height: 100%;
 }
 
@@ -23,20 +24,17 @@ nav {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .logo img {
-  width: 30px;
-  height: 30px;
+  width: 24px; /* Adjust logo size */
+  height: 24px;
   object-fit: contain;
-  transform: scale(0.8);
 }
 
 ul {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem; /* Adjust gap for a compact design */
   list-style: none;
 }
 
@@ -59,3 +57,29 @@ a:hover {
   color: white;
 }
 
+@media (max-width: 768px) {
+  .navbar nav ul {
+    display: none;
+    flex-direction: column;
+    background-color: #2563eb;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+  }
+
+  .navbar nav ul.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  color: white;
+}

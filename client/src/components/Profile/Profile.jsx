@@ -18,13 +18,6 @@ const Profile = () => {
 
   return (
     <div className="profile">
-      <nav className="profile-nav">
-        <a href="/profile">Profile</a>
-        <a href="/calendar">Calendar</a>
-        <a href="/blog">Blog</a>
-        <a href="/recommendations">Recommendations</a>
-      </nav>
-
       <div className="profile-main">
         <div className="profile-card">
           <div className="profile-avatar">
@@ -35,10 +28,10 @@ const Profile = () => {
             />
             <div className="upload-overlay">
               <label htmlFor="upload-input">
-                <img 
-                  src={cameraIcon} 
-                  alt="Upload Camera Icon" 
-                  className="camera-icon" // Add this class
+                <img
+                  src={cameraIcon}
+                  alt="Upload Camera Icon"
+                  className="camera-icon"
                 />
               </label>
               <input

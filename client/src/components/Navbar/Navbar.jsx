@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import whitePaw from '../../assets/White_paw_print.png'
+import whitePaw from '../../assets/White_paw_print.png';
 import './Navbar.css';
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <header className="navbar">
       <nav>
@@ -16,7 +22,10 @@ const Navbar = () => {
           />
           <span className="logo-text">PetConnect</span>
         </div>
-        <ul>
+        <div className="hamburger" onClick={toggleMenu}>
+          ☰
+        </div>
+        <ul className={menuOpen ? 'show' : ''}>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/profile">Profile</Link></li>
           <li><Link to="/calendar">Calendar</Link></li>
