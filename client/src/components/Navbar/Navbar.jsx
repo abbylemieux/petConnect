@@ -27,10 +27,11 @@ const Navbar = () => {
         </div>
         <ul className={menuOpen ? 'show' : ''}>
           <li><Link to="/">Home</Link></li>
+        <ul>
           <li><Link to="/profile">Profile</Link></li>
           <li><Link to="/calendar">Calendar</Link></li>
           <li><Link to="/blog">Blog</Link></li>
-          <li><Link to="/services">Services</Link></li>
+          <li><Link to="/recommendations">Recommendations</Link></li>
         </ul>
       </nav>
     </header>
