@@ -14,12 +14,7 @@ const Navbar = () => {
     <header className="navbar">
       <nav>
         <div className="logo">
-          <i className="fas fa-paw"></i>
-          <img 
-            src={whitePaw} 
-            alt="PetConnect Logo" 
-            className="w-4 h-4 object-contain"
-          />
+          <img src={whitePaw} alt="PetConnect Logo" />
           <span className="logo-text">PetConnect</span>
         </div>
         <div className="hamburger" onClick={toggleMenu}>
@@ -27,11 +22,10 @@ const Navbar = () => {
         </div>
         <ul className={menuOpen ? 'show' : ''}>
           <li><Link to="/">Home</Link></li>
-        <ul>
           <li><Link to="/profile">Profile</Link></li>
           <li><Link to="/calendar">Calendar</Link></li>
           <li><Link to="/blog">Blog</Link></li>
-          <li><Link to="/recommendations">Recommendations</Link></li>
+          <li><Link to="/services">Services</Link></li>
         </ul>
       </nav>
     </header>
