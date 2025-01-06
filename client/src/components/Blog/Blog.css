@@ -1,31 +1,115 @@
-textarea, button {
-    font-family: 'Arial', sans-serif;
-  }
-  button {
-    background-color: #ff5722;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 14px;
-  }
-  button:hover {
-    background-color: #e64a19;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-  }
-  h3 {
-    margin: 0;
-    color: #333;
-  }
-  h4 {
-    margin: 10px 0 5px 0;
-  }
-  p {
-    margin: 5px 0;
-  }
-  
+/* Blog Container */
+.blog-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Blog Heading */
+.blog-container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Create Post Section */
+.create-post {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.create-post textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: none;
+}
+
+.create-post button {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.create-post button:hover {
+  background-color: #174bb8;
+}
+
+/* Posts Container */
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Post Card */
+.post-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Post Header */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.post-header .post-date {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Post Content */
+.post-content {
+  font-size: 14px;
+  color: #333;
+  margin: 10px 0;
+}
+
+/* Post Actions */
+.post-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.post-actions button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #2563eb;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.post-actions button:hover {
+  color: #174bb8;
+}
