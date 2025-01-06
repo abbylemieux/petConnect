@@ -122,8 +122,8 @@ const Blog = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Blog</h1>
+    <div className="blog-container" style={{ padding: '20px', animation: 'fadeIn 0.3s ease-in' }}>
+      <h1 style={{ marginTop: '70px' }}>Blog</h1>
       <div>
         <h2>Create a Post</h2>
         <textarea

@@ -12,19 +12,21 @@ function App() {
   return (
     <Router>
       <div className="App">
-        
         <Navbar />
-        <Routes>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/avatar" element={<Avatar />} />
-          <Route path="/recommendations" element={<Recommendations />} />
-          <Route path="/reminders" element={<Reminders />} />
-        </Routes>
+        <div className="main-content">
+          <Routes>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/avatar" element={<Avatar />} />
+            <Route path="/recommendations" element={<Recommendations />} />
+            <Route path="/reminders" element={<Reminders />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
 }
+
 
 export default App;

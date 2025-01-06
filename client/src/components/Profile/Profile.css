@@ -1,19 +1,192 @@
-.navbar {
-  background-color: #3B82F6;
-  padding: 1rem;
+/* Profile.css */
+
+/* General styling for the profile page */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
 }
 
-.navbar a {
-  color: white;
+/* Add fadeIn animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile {
+  animation: fadeIn 0.3s ease-in;
+  max-width: 1200px; /* Increased from 800px */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Navigation styling */
+.profile-nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.profile-nav a {
+  color: #ffffff;
   text-decoration: none;
-  margin: 0 1rem;
   font-weight: bold;
+  padding: 0 15px;
 }
 
-.navbar a:hover {
+.profile-nav a:hover {
   text-decoration: underline;
 }
 
-.navbar .active {
-  color: #B2E4FA;
+/* Main Profile section */
+.profile-main {
+  animation: fadeIn 0.3s ease-in;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px; /* Increased padding */
+  margin-top: 20px;
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box;
 }
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure space between avatar and info */
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  position: relative;
+  margin-right: 20px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container without distortion */
+  border-radius: 50%;
+  border: 4px solid #ddd;
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-avatar:hover .upload-overlay {
+  opacity: 1;
+}
+
+.profile-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.shot-records {
+  margin-top: 10px;
+}
+
+.shot-records h3 {
+  margin-bottom: 5px;
+}
+
+.edit-profile-button {
+  align-self: flex-end; /* Align button to the right */
+  margin-top: 10px;
+  padding: 12px 20px; /* Make button bigger */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transform: translateY(-160px); /* Apply transformation */
+}
+
+.edit-profile-button:hover {
+  background-color: #0056b3;
+}
+
+/* Details section */
+.profile-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Add spacing between cards */
+  width: 100%;
+}
+
+.details-card {
+  animation: fadeIn 0.3s ease-in;
+  flex: 1;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 0 10px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.details-card h4 {
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.details-card p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.camera-icon {
+  width: 16px;  /* Adjusted to be smaller */
+  height: 16px; /* Adjusted to be smaller */
+}
+
+.details-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.details-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
