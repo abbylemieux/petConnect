@@ -122,23 +122,18 @@ const Blog = () => {
   };
 
   return (
-    <div className="blog-container" style={{ padding: '20px', animation: 'fadeIn 0.3s ease-in' }}>
-      <h1 style={{ marginTop: '70px' }}>Blog</h1>
-      <div>
-        <h2>Create a Post</h2>
+    <div className="blog-container">
+      <h1>Blog</h1>
+      <div className="create-post">
         <textarea
           value={newPost}
-          onChange={e => setNewPost(e.target.value)}
+          onChange={(e) => setNewPost(e.target.value)}
           placeholder="What's on your mind?"
           rows="4"
-          style={{ width: '100%', marginBottom: '10px' }}
         />
-        <button onClick={createPost} style={{ padding: '10px', cursor: 'pointer' }}>
-          Post
-        </button>
+        <button onClick={createPost}>Post</button>
       </div>
-      <div>
-        <h2>All Posts</h2>
+      <div className="posts-container">
         {posts.length === 0 ? (
           <p>No posts yet. Be the first to create one!</p>
         ) : (
@@ -151,7 +146,7 @@ const Blog = () => {
                 marginBottom: '10px',
               }}
             >
-              <h3>{post.author}</h3>
+                <h3>{post.author}</h3>
               <p>{post.content}</p>
               <div>
                 <button onClick={() => handlePostReaction(post.id, 'likes')}>
