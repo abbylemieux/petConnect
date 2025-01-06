@@ -9,6 +9,16 @@ const petSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'Profile'
+    },
+    type: {
+        type: String,
+        required: true,
+        enum: ['Dog', 'Cat', 'Bird', 'Fish', 'Reptile', 'Insect', 'Horse', 'Rabbit', 'Other'],
+        trim: true
+    },
+    calendar: {
+        type: Schema.Types.ObjectId,
+        ref: 'Calendar'
     }
 });
 

@@ -17,11 +17,14 @@
   "dependencies": {
     "dotenv": "16.4.5",
     "@apollo/server": "^4.10.4",
+    "apollo-server-express": "^3.6.0",
     "bcrypt": "5.0.0",
     "express": "^4.21.2",
     "graphql": "^16.9.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^8.4.3"
+    "mongoose": "^8.4.3",
+    "@googleapis/calendar": "^9.7.9",
+    "googleapis": "144.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
