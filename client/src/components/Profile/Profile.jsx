@@ -6,6 +6,15 @@ import profileAvatar from "../../assets/vitor-fontes-SxLe8EHtC3U-unsplash.jpg";
 
 const Profile = () => {
   const [profilePhoto, setProfilePhoto] = useState(profileAvatar);
+  const [isEditing, setIsEditing] = useState(false);
+  const [profileData, setProfileData] = useState({
+    name: "Max",
+    location: "Seattle, WA",
+    shotRecords: [
+      { type: "Rabies", validUntil: "12/2024" },
+      { type: "DHPP", validUntil: "06/2024" }
+    ]
+  });
 
   const handlePhotoUpload = (event) => {
     const file = event.target.files[0];
@@ -16,6 +25,29 @@ const Profile = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleEdit = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleChange = (field, value) => {
+    setProfileData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleShotRecordChange = (index, field, value) => {
+    const updatedRecords = [...profileData.shotRecords];
+    updatedRecords[index] = {
+      ...updatedRecords[index],
+      [field]: value
+    };
+    setProfileData(prev => ({
+      ...prev,
+      shotRecords: updatedRecords
+    }));
   };
 
   return (
@@ -34,10 +66,11 @@ const Profile = () => {
             )}
             <div className="upload-overlay">
               <label htmlFor="upload-input">
-                <img
-                  src={cameraIcon}
-                  alt="Upload Camera Icon"
+                <img 
+                  src={cameraIcon} 
+                  alt="Upload Camera Icon" 
                   className="camera-icon"
+                  style={{ width: "49.4531px", height: "49.4531px", objectFit: "contain" }}
                 />
               </label>
               <input
@@ -50,14 +83,60 @@ const Profile = () => {
             </div>
           </div>
           <div className="profile-info">
-            <h2 id="pet-name" className="text-2xl font-bold">Max</h2>
-            <p>Seattle, WA</p>
-            <div className="shot-records">
-              <h3>Shot Records</h3>
-              <p>Rabies: Valid until 12/2024</p>
-              <p>DHPP: Valid until 06/2024</p>
-            </div>
-            <Link to="/edit profile details" className="edit-profile-button">Edit Profile</Link>
+            {isEditing ? (
+              <>
+                <input
+                  type="text"
+                  value={profileData.name}
+                  onChange={(e) => handleChange('name', e.target.value)}
+                  className="text-2xl font-bold border rounded px-2 py-1"
+                />
+                <input
+                  type="text"
+                  value={profileData.location}
+                  onChange={(e) => handleChange('location', e.target.value)}
+                  className="mt-2 border rounded px-2 py-1"
+                />
+                <div className="shot-records mt-4">
+                  <h3>Shot Records</h3>
+                  {profileData.shotRecords.map((record, index) => (
+                    <div key={index} className="flex space-x-2 mt-2">
+                      <input
+                        type="text"
+                        value={record.type}
+                        onChange={(e) => handleShotRecordChange(index, 'type', e.target.value)}
+                        className="border rounded px-2 py-1"
+                      />
+                      <input
+                        type="text"
+                        value={record.validUntil}
+                        onChange={(e) => handleShotRecordChange(index, 'validUntil', e.target.value)}
+                        className="border rounded px-2 py-1"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 id="pet-name" className="text-2xl font-bold">{profileData.name}</h2>
+                <p>{profileData.location}</p>
+                <div className="shot-records">
+                  <h3>Shot Records</h3>
+                  {profileData.shotRecords.map((record, index) => (
+                    <p key={index}>
+                      {record.type}: Valid until {record.validUntil}
+                    </p>
+                  ))}
+                </div>
+              </>
+            )}
+            <button
+              onClick={handleEdit}
+              className="edit-profile-button"
+            >
+              {isEditing ? 'Save Profile' : 'Edit Profile'}
+            </button>
           </div>
         </div>
 

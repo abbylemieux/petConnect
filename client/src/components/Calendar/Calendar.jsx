@@ -75,8 +75,8 @@ const Calendar = ({ addReminderToFeed }) => {
     reminders.filter(reminder => reminder.date === format(date, 'yyyy-MM-dd'));
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Calendar</h1>
+    <div className="calendar-container" style={{ padding: '20px', animation: 'fadeIn 0.3s ease-in' }}>
+      <h1 style={{ marginTop: '70px' }}>Calendar</h1>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
         <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>← Previous</button>
         <h2>{format(currentMonth, 'MMMM yyyy')}</h2>
