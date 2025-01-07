@@ -1,77 +1,105 @@
+/* Container for the recommendations */
 .recommendations-container {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
+    font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.recommendations-container section {
-    animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.recommendations {
-    padding: 20px;
-    background-color: #f9f9f9;
-}
-
-.recommendations-title {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Section Header */
+  .recommendations-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .recommendations-header h2 {
     font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.recommendation-item {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.recommendation-category {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.recommendation-name {
+    font-weight: bold;
+    color: #2563eb;
+  }
+  
+  /* Grid layout for recommendations */
+  .recommendations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  /* Individual recommendation card */
+  .recommendation-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .recommendation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Card title */
+  .recommendation-card h3 {
     font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.recommendation-address {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.recommendation-rating {
-    font-size: 14px;
-    color: #888;
-}
-
-.recommendation-item h4 {
-    margin: 0;
-    font-size: 1.2em;
     color: #333;
-}
-
-.recommendation-item p {
-    margin: 5px 0 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  /* Address styling */
+  .recommendation-card p {
+    font-size: 14px;
     color: #666;
-}
-
-.recommendation-item .rating {
+    margin: 5px 0;
+  }
+  
+  /* Rating stars */
+  .rating {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
-    color: #ffcc00;
-}
+  }
+  
+  .rating span {
+    font-size: 14px;
+    color: #666;
+    margin-left: 5px;
+  }
+  
+  .rating .stars {
+    color: #fbbf24;
+    font-size: 16px;
+  }
+  
+  /* Button styling for adding recommendations */
+  .add-recommendation-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-recommendation-button:hover {
+    background-color: #174bb8;
+  }
+  
+  /* Responsive grid for smaller screens */
+  @media (max-width: 768px) {
+    .recommendations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  

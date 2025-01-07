@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./Profile.css";
 import cameraIcon from "../../assets/White_camera_icon.png";
 import profileAvatar from "../../assets/vitor-fontes-SxLe8EHtC3U-unsplash.jpg";
@@ -12,8 +11,27 @@ const Profile = () => {
     location: "Seattle, WA",
     shotRecords: [
       { type: "Rabies", validUntil: "12/2024" },
-      { type: "DHPP", validUntil: "06/2024" }
-    ]
+      { type: "DHPP", validUntil: "06/2024" },
+    ],
+    medications: [
+      { name: "Heartworm Prevention", frequency: "Monthly" },
+      { name: "Flea and Tick", frequency: "Weekly" },
+    ],
+    owner: {
+      name: "John Doe",
+      phone: "123-456-7890",
+      address: "123 Main St, Seattle, WA",
+    },
+    veterinarian: {
+      name: "Dr. Smith",
+      phone: "555-123-4567",
+      address: "456 Veterinary Rd, Seattle, WA",
+    },
+    daycare: {
+      name: "Happy Tails Daycare",
+      phone: "555-987-6543",
+      address: "789 Puppy Ln, Seattle, WA",
+    },
   });
 
   const handlePhotoUpload = (event) => {
@@ -27,136 +45,228 @@ const Profile = () => {
     }
   };
 
-  const handleEdit = () => {
+  const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
 
   const handleChange = (field, value) => {
-    setProfileData(prev => ({
+    setProfileData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
-  const handleShotRecordChange = (index, field, value) => {
-    const updatedRecords = [...profileData.shotRecords];
-    updatedRecords[index] = {
-      ...updatedRecords[index],
-      [field]: value
-    };
-    setProfileData(prev => ({
+  const handleNestedChange = (category, field, value) => {
+    setProfileData((prev) => ({
       ...prev,
-      shotRecords: updatedRecords
+      [category]: {
+        ...prev[category],
+        [field]: value,
+      },
+    }));
+  };
+
+  const handleArrayChange = (arrayName, index, field, value) => {
+    const updatedArray = [...profileData[arrayName]];
+    updatedArray[index] = { ...updatedArray[index], [field]: value };
+    setProfileData((prev) => ({
+      ...prev,
+      [arrayName]: updatedArray,
     }));
   };
 
   return (
     <div className="profile">
-      <div className="profile-main">
-        <div className="profile-card">
-          <div className="profile-avatar" style={{ backgroundColor: profilePhoto ? 'transparent' : '#ccc' }}>
-            {profilePhoto ? (
+      {/* Header Section */}
+      <div className="profile-header">
+        <div className="profile-avatar">
+          <img src={profilePhoto} alt="Profile Avatar" />
+          <div className="upload-overlay">
+            <label htmlFor="upload-input">
               <img
-                id="profile-photo"
-                src={profilePhoto}
-                alt="Profile Avatar"
+                src={cameraIcon}
+                alt="Upload Camera Icon"
+                className="camera-icon"
               />
-            ) : (
-              <div className="default-avatar"></div>
-            )}
-            <div className="upload-overlay">
-              <label htmlFor="upload-input">
-                <img 
-                  src={cameraIcon} 
-                  alt="Upload Camera Icon" 
-                  className="camera-icon"
-                  style={{ width: "49.4531px", height: "49.4531px", objectFit: "contain" }}
-                />
-              </label>
+            </label>
+            <input
+              id="upload-input"
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoUpload}
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+        <div className="profile-info">
+          {isEditing ? (
+            <>
               <input
-                id="upload-input"
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoUpload}
-                style={{ display: "none" }}
+                type="text"
+                value={profileData.name}
+                onChange={(e) => handleChange("name", e.target.value)}
+                className="input-field name-input"
               />
-            </div>
-          </div>
-          <div className="profile-info">
-            {isEditing ? (
-              <>
-                <input
-                  type="text"
-                  value={profileData.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
-                  className="text-2xl font-bold border rounded px-2 py-1"
-                />
-                <input
-                  type="text"
-                  value={profileData.location}
-                  onChange={(e) => handleChange('location', e.target.value)}
-                  className="mt-2 border rounded px-2 py-1"
-                />
-                <div className="shot-records mt-4">
-                  <h3>Shot Records</h3>
-                  {profileData.shotRecords.map((record, index) => (
-                    <div key={index} className="flex space-x-2 mt-2">
-                      <input
-                        type="text"
-                        value={record.type}
-                        onChange={(e) => handleShotRecordChange(index, 'type', e.target.value)}
-                        className="border rounded px-2 py-1"
-                      />
-                      <input
-                        type="text"
-                        value={record.validUntil}
-                        onChange={(e) => handleShotRecordChange(index, 'validUntil', e.target.value)}
-                        className="border rounded px-2 py-1"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <>
-                <h2 id="pet-name" className="text-2xl font-bold">{profileData.name}</h2>
-                <p>{profileData.location}</p>
-                <div className="shot-records">
-                  <h3>Shot Records</h3>
-                  {profileData.shotRecords.map((record, index) => (
-                    <p key={index}>
-                      {record.type}: Valid until {record.validUntil}
-                    </p>
-                  ))}
-                </div>
-              </>
-            )}
-            <button
-              onClick={handleEdit}
-              className="edit-profile-button"
-            >
-              {isEditing ? 'Save Profile' : 'Edit Profile'}
-            </button>
-          </div>
+              <input
+                type="text"
+                value={profileData.location}
+                onChange={(e) => handleChange("location", e.target.value)}
+                className="input-field location-input"
+              />
+            </>
+          ) : (
+            <>
+              <h2>{profileData.name}</h2>
+              <p>{profileData.location}</p>
+            </>
+          )}
+          <button
+            onClick={handleEditToggle}
+            className="edit-profile-button"
+          >
+            {isEditing ? "Save Profile" : "Edit Profile"}
+          </button>
         </div>
+      </div>
 
-        <div className="profile-details">
-          <div className="details-card">
-            <h4>Vet Appointments</h4>
-            <p>Annual Checkup</p>
-            <p>March 15, 2024</p>
-          </div>
-          <div className="details-card">
-            <h4>Vaccinations Due</h4>
-            <p>Bordetella</p>
-            <p>April 1, 2024</p>
-          </div>
-          <div className="details-card">
-            <h4>Medications</h4>
-            <p>Heartworm Prevention</p>
-            <p>Monthly</p>
-          </div>
+      {/* Details Section */}
+      <div className="profile-details">
+        <div className="details-card">
+          <h4>Owner Info</h4>
+          {isEditing ? (
+            <>
+              <input
+                type="text"
+                value={profileData.owner.name}
+                onChange={(e) =>
+                  handleNestedChange("owner", "name", e.target.value)
+                }
+                className="input-field"
+                placeholder="Owner Name"
+              />
+              <input
+                type="text"
+                value={profileData.owner.phone}
+                onChange={(e) =>
+                  handleNestedChange("owner", "phone", e.target.value)
+                }
+                className="input-field"
+                placeholder="Phone"
+              />
+              <input
+                type="text"
+                value={profileData.owner.address}
+                onChange={(e) =>
+                  handleNestedChange("owner", "address", e.target.value)
+                }
+                className="input-field"
+                placeholder="Address"
+              />
+            </>
+          ) : (
+            <>
+              <p>Name: {profileData.owner.name}</p>
+              <p>Phone: {profileData.owner.phone}</p>
+              <p>Address: {profileData.owner.address}</p>
+            </>
+          )}
         </div>
+        <div className="details-card">
+          <h4>Veterinarian</h4>
+          {isEditing ? (
+            <>
+              <input
+                type="text"
+                value={profileData.veterinarian.name}
+                onChange={(e) =>
+                  handleNestedChange("veterinarian", "name", e.target.value)
+                }
+                className="input-field"
+                placeholder="Vet Name"
+              />
+              <input
+                type="text"
+                value={profileData.veterinarian.phone}
+                onChange={(e) =>
+                  handleNestedChange("veterinarian", "phone", e.target.value)
+                }
+                className="input-field"
+                placeholder="Phone"
+              />
+              <input
+                type="text"
+                value={profileData.veterinarian.address}
+                onChange={(e) =>
+                  handleNestedChange("veterinarian", "address", e.target.value)
+                }
+                className="input-field"
+                placeholder="Address"
+              />
+            </>
+          ) : (
+            <>
+              <p>Name: {profileData.veterinarian.name}</p>
+              <p>Phone: {profileData.veterinarian.phone}</p>
+              <p>Address: {profileData.veterinarian.address}</p>
+            </>
+          )}
+        </div>
+        <div className="details-card">
+          <h4>Daycare</h4>
+          {isEditing ? (
+            <>
+              <input
+                type="text"
+                value={profileData.daycare.name}
+                onChange={(e) =>
+                  handleNestedChange("daycare", "name", e.target.value)
+                }
+                className="input-field"
+                placeholder="Daycare Name"
+              />
+              <input
+                type="text"
+                value={profileData.daycare.phone}
+                onChange={(e) =>
+                  handleNestedChange("daycare", "phone", e.target.value)
+                }
+                className="input-field"
+                placeholder="Phone"
+              />
+              <input
+                type="text"
+                value={profileData.daycare.address}
+                onChange={(e) =>
+                  handleNestedChange("daycare", "address", e.target.value)
+                }
+                className="input-field"
+                placeholder="Address"
+              />
+            </>
+          ) : (
+            <>
+              <p>Name: {profileData.daycare.name}</p>
+              <p>Phone: {profileData.daycare.phone}</p>
+              <p>Address: {profileData.daycare.address}</p>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Records Section */}
+      <div className="records-section">
+        <h3>Shot Records</h3>
+        {profileData.shotRecords.map((record, index) => (
+          <p key={index}>
+            {record.type}: Valid until {record.validUntil}
+          </p>
+        ))}
+        <h3>Medications</h3>
+        {profileData.medications.map((med, index) => (
+          <p key={index}>
+            {med.name}: {med.frequency}
+          </p>
+        ))}
       </div>
     </div>
   );

@@ -1,48 +1,115 @@
-/* Calendar.css file for styling the Calendar component */
-
-.calendar-container {
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .calendar-container {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.calendar-day {
-    min-height: 80px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+  }
+  
+  .calendar-day-header {
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .calendar-day {
     padding: 10px;
-    border: 1px solid #e0e0e0;
-    transition: background-color 0.2s ease;
-}
-
-.calendar-day:hover {
-    background-color: #f5f5f5;
-}
-
-.today {
-    border-color: #3B82F6;
-    background-color: #e0f7fa;
-}
-
-.event-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin: 2px;
-}
-
-.event-vet {
-    background-color: #BFDBFE;
-}
-
-.event-vaccination {
-    background-color: #BBF7D0;
-}
-
-.event-grooming {
-    background-color: #E9D5FF;
-}
-
-.event-boarding {
-    background-color: #FDBA74;
-}
-
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .calendar-day:hover {
+    background-color: #f0f8ff;
+    transform: translateY(-3px);
+  }
+  
+  .selected {
+    border-color: #2563eb;
+    background-color: #ebf5ff;
+  }
+  
+  .reminders-list {
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+  }
+  
+  .reminder {
+    font-size: 12px;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+  
+  .add-reminder {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  form-group input,
+  form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #174bb8;
+  }
+  
