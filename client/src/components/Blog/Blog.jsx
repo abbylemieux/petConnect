@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import './Blog.css';
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState('');
   const [user, setUser] = useState('Anonymous'); // Simulate user info
 
-  // Load posts from localStorage when the component mounts
   useEffect(() => {
     const storedPosts = JSON.parse(localStorage.getItem('posts')) || [];
     setPosts(storedPosts);
   }, []);
 
-  // Save posts to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('posts', JSON.stringify(posts));
   }, [posts]);
 
-  // Create a new post
   const createPost = () => {
     if (newPost.trim() === '') return;
     const post = {
@@ -32,23 +30,16 @@ const Blog = () => {
     setNewPost('');
   };
 
-  // Like/Dislike a post
   const handlePostReaction = (postId, type) => {
-    const updatedPosts = posts.map(post => {
-      if (post.id === postId) {
-        return {
-          ...post,
-          [type]: post[type] + 1,
-        };
-      }
-      return post;
-    });
+    const updatedPosts = posts.map((post) =>
+      post.id === postId ? { ...post, [type]: post[type] + 1 } : post
+    );
     setPosts(updatedPosts);
   };
 
-  // Add a comment
   const addComment = (postId, commentContent) => {
-    const updatedPosts = posts.map(post => {
+    if (commentContent.trim() === '') return;
+    const updatedPosts = posts.map((post) => {
       if (post.id === postId) {
         const newComment = {
           id: Date.now(),
@@ -56,65 +47,23 @@ const Blog = () => {
           author: user,
           likes: 0,
           dislikes: 0,
-          replies: [],
         };
-        return {
-          ...post,
-          comments: [...post.comments, newComment],
-        };
+        return { ...post, comments: [...post.comments, newComment] };
       }
       return post;
     });
     setPosts(updatedPosts);
   };
 
-  // Like/Dislike a comment
   const handleCommentReaction = (postId, commentId, type) => {
-    const updatedPosts = posts.map(post => {
+    const updatedPosts = posts.map((post) => {
       if (post.id === postId) {
-        const updatedComments = post.comments.map(comment => {
-          if (comment.id === commentId) {
-            return {
-              ...comment,
-              [type]: comment[type] + 1,
-            };
-          }
-          return comment;
-        });
-        return {
-          ...post,
-          comments: updatedComments,
-        };
-      }
-      return post;
-    });
-    setPosts(updatedPosts);
-  };
-
-  // Add a reply to a comment
-  const addReply = (postId, commentId, replyContent) => {
-    const updatedPosts = posts.map(post => {
-      if (post.id === postId) {
-        const updatedComments = post.comments.map(comment => {
-          if (comment.id === commentId) {
-            const newReply = {
-              id: Date.now(),
-              content: replyContent,
-              author: user,
-              likes: 0,
-              dislikes: 0,
-            };
-            return {
-              ...comment,
-              replies: [...comment.replies, newReply],
-            };
-          }
-          return comment;
-        });
-        return {
-          ...post,
-          comments: updatedComments,
-        };
+        const updatedComments = post.comments.map((comment) =>
+          comment.id === commentId
+            ? { ...comment, [type]: comment[type] + 1 }
+            : comment
+        );
+        return { ...post, comments: updatedComments };
       }
       return post;
     });
@@ -122,38 +71,31 @@ const Blog = () => {
   };
 
   return (
-    <div className="blog-container" style={{ padding: '20px', animation: 'fadeIn 0.3s ease-in' }}>
-      <h1 style={{ marginTop: '70px' }}>Blog</h1>
-      <div>
-        <h2>Create a Post</h2>
+    <div className="blog-container">
+      <h1>Blog</h1>
+      <div className="create-post">
         <textarea
           value={newPost}
-          onChange={e => setNewPost(e.target.value)}
+          onChange={(e) => setNewPost(e.target.value)}
           placeholder="What's on your mind?"
           rows="4"
-          style={{ width: '100%', marginBottom: '10px' }}
         />
-        <button onClick={createPost} style={{ padding: '10px', cursor: 'pointer' }}>
-          Post
-        </button>
+        <button onClick={createPost}>Post</button>
       </div>
-      <div>
-        <h2>All Posts</h2>
+      <div className="posts-container">
         {posts.length === 0 ? (
           <p>No posts yet. Be the first to create one!</p>
         ) : (
-          posts.map(post => (
-            <div
-              key={post.id}
-              style={{
-                border: '1px solid #ddd',
-                padding: '10px',
-                marginBottom: '10px',
-              }}
-            >
-              <h3>{post.author}</h3>
-              <p>{post.content}</p>
-              <div>
+          posts.map((post) => (
+            <div key={post.id} className="post-card">
+              <div className="post-header">
+                <h3>{post.author}</h3>
+                <span className="post-date">
+                  {new Date(post.createdAt).toLocaleString()}
+                </span>
+              </div>
+              <p className="post-content">{post.content}</p>
+              <div className="post-actions">
                 <button onClick={() => handlePostReaction(post.id, 'likes')}>
                   👍 {post.likes}
                 </button>
@@ -161,83 +103,41 @@ const Blog = () => {
                   👎 {post.dislikes}
                 </button>
               </div>
-              <div>
+              <div className="comments-section">
                 <h4>Comments</h4>
-                {post.comments.map(comment => (
-                  <div
-                    key={comment.id}
-                    style={{
-                      border: '1px solid #ccc',
-                      padding: '5px',
-                      marginBottom: '5px',
-                    }}
-                  >
+                {post.comments.map((comment) => (
+                  <div key={comment.id} className="comment-card">
                     <p>
                       <strong>{comment.author}</strong>: {comment.content}
                     </p>
-                    <div>
-                      <button onClick={() => handleCommentReaction(post.id, comment.id, 'likes')}>
+                    <div className="comment-actions">
+                      <button
+                        onClick={() =>
+                          handleCommentReaction(post.id, comment.id, 'likes')
+                        }
+                      >
                         👍 {comment.likes}
                       </button>
-                      <button onClick={() => handleCommentReaction(post.id, comment.id, 'dislikes')}>
+                      <button
+                        onClick={() =>
+                          handleCommentReaction(post.id, comment.id, 'dislikes')
+                        }
+                      >
                         👎 {comment.dislikes}
                       </button>
-                      <input
-                        type="text"
-                        placeholder="Reply"
-                        onKeyDown={e => {
-                          if (e.key === 'Enter') {
-                            addReply(post.id, comment.id, e.target.value);
-                            e.target.value = '';
-                          }
-                        }}
-                        style={{ marginTop: '5px', width: '100%' }}
-                      />
-                    </div>
-                    <div style={{ marginLeft: '20px', marginTop: '10px' }}>
-                      {comment.replies.map(reply => (
-                        <div
-                          key={reply.id}
-                          style={{
-                            border: '1px solid #ddd',
-                            padding: '5px',
-                            marginBottom: '5px',
-                          }}
-                        >
-                          <p>
-                            <strong>{reply.author}</strong>: {reply.content}
-                          </p>
-                          <div>
-                            <button
-                              onClick={() =>
-                                handleCommentReaction(post.id, reply.id, 'likes')
-                              }
-                            >
-                              👍 {reply.likes}
-                            </button>
-                            <button
-                              onClick={() =>
-                                handleCommentReaction(post.id, reply.id, 'dislikes')
-                              }
-                            >
-                              👎 {reply.dislikes}
-                            </button>
-                          </div>
-                        </div>
-                      ))}
                     </div>
                   </div>
                 ))}
-                <input
-                  type="text"
-                  placeholder="Add a comment"
-                  onKeyDown={e => {
-                    if (e.key === 'Enter') {
+                <textarea
+                  placeholder="Add a comment..."
+                  rows="2"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
                       addComment(post.id, e.target.value);
                       e.target.value = '';
                     }
                   }}
-                  style={{ marginTop: '5px', width: '100%' }}
                 />
               </div>
             </div>
