@@ -1,3 +1,4 @@
+/* General fade-in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -8,6 +9,7 @@
     transform: translateY(0);
   }
 }
+
 /* Blog Container */
 .blog-container {
   max-width: 800px;
@@ -15,6 +17,7 @@
   padding: 20px;
   font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
+  animation: fadeIn 0.3s ease-in;
 }
 
 /* Blog Heading */
@@ -27,7 +30,7 @@
 /* Create Post Section */
 .create-post {
   background-color: #fff;
-  padding: 15px;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -35,26 +38,33 @@
 
 .create-post textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 14px;
   resize: none;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 .create-post button {
+  display: block;
+  width: 100%;
   background-color: #2563eb;
   color: #fff;
   border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  margin-top: 10px;
+  padding: 12px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .create-post button:hover {
   background-color: #174bb8;
+  transform: translateY(-2px);
 }
 
 /* Posts Container */
@@ -123,5 +133,3 @@
 .post-actions button:hover {
   color: #174bb8;
 }
-
-  

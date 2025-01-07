@@ -15,7 +15,7 @@ const Profile = () => {
     ],
     medications: [
       { name: "Heartworm Prevention", frequency: "Monthly" },
-      { name: "Flea and Tick", frequency: "Weekly" },
+      { name: "Flea and Tick", frequency: "Monthly" },
     ],
     owner: {
       name: "John Doe",
