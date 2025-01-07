@@ -39,3 +39,5 @@ function AvatarUpload() {
 }
 
 export default AvatarUpload;
+
+/* Updated Code */

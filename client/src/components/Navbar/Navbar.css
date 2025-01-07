@@ -1,22 +1,23 @@
 .navbar {
   background-color: #2563eb;
-  padding: 0 1.5rem; /* Remove excessive vertical padding */
-  height: 50px; /* Adjusted height */
+  padding: 0 1.5rem;
+  height: 50px;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
 }
+
 .main-content {
-  padding-top: 60px; 
+  padding-top: 60px;
 }
 
 nav {
   max-width: 1280px;
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Center items vertically within the navbar */
+  align-items: center;
   height: 100%;
 }
 
@@ -27,25 +28,26 @@ nav {
 }
 
 .logo img {
-  width: 24px; /* Adjust logo size */
+  width: 24px;
   height: 24px;
   object-fit: contain;
 }
 
-ul {
+.nav-links {
   display: flex;
-  gap: 1.5rem; /* Adjust gap for a compact design */
+  gap: 1.5rem;
   list-style: none;
+  margin-left: auto; /* Pushes links to the right */
 }
 
-a {
+.nav-links a {
   color: white;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
 }
 
-a:hover {
+.nav-links a:hover {
   color: #BFDBFE;
 }
 
@@ -57,8 +59,30 @@ a:hover {
   color: white;
 }
 
+.hamburger {
+  display: none;
+  font-size: 24px;
+  color: white;
+}
+
+.sign-in-btn {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: 1rem;
+}
+
+.sign-in-btn:hover {
+  background-color: white;
+  color: #2563eb;
+}
+
 @media (max-width: 768px) {
-  .navbar nav ul {
+  .nav-links {
     display: none;
     flex-direction: column;
     background-color: #2563eb;
@@ -68,7 +92,7 @@ a:hover {
     width: 100%;
   }
 
-  .navbar nav ul.show {
+  .nav-links.show {
     display: flex;
   }
 
@@ -78,8 +102,76 @@ a:hover {
   }
 }
 
-.hamburger {
-  display: none;
-  font-size: 24px;
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal-card h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #2563eb;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-btn,
+.cancel-btn {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #2563eb;
   color: white;
+}
+
+.submit-btn:hover {
+  background-color: #1e40af;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: black;
+}
+
+.cancel-btn:hover {
+  background-color: #aaa;
 }

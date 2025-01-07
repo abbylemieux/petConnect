@@ -148,3 +148,5 @@ const Calendar = ({ addReminderToFeed }) => {
 };
 
 export default Calendar;
+
+/* Updated Code */

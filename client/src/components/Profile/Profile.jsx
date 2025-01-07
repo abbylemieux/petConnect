@@ -273,3 +273,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+/* Updated Code */
