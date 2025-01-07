@@ -43,3 +43,5 @@ const SignIn = ({ switchForm }) => {
 };
 
 export default SignIn;
+
+/* Updated Code */

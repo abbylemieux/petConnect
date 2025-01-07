@@ -149,3 +149,5 @@ const Blog = () => {
 };
 
 export default Blog;
+
+/* Updated Code */
