@@ -1,4 +1,4 @@
-/*import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -34,9 +34,9 @@ class AuthenticationError extends GraphQLError {
   }
 }
 
-export { authenticateToken, signToken, AuthenticationError };*/
+export { authenticateToken, signToken, AuthenticationError };
 
-import jwt from 'jsonwebtoken';
+/*import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: 'server\\.env' });
@@ -63,4 +63,4 @@ const signToken = (username, _id) => {
 
 //export default { authenticateToken, signToken };
 export { authenticateToken };
-export default signToken;
+export default signToken;*/

@@ -1,5 +1,5 @@
 import { Profile, Pet, Calendar } from '../models/index.js';
-import signToken from '../utils/auth.js';
+import { signToken } from '../utils/auth.js';
 import bcrypt from 'bcrypt';
 import { AuthenticationError } from 'apollo-server-express';
 

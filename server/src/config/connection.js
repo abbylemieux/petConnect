@@ -1,6 +1,6 @@
 //const dotenv = require('dotenv');
 import dotenv from 'dotenv';
-dotenv.config({ path: 'server\\.env' });
+dotenv.config();
 
 import mongoose from 'mongoose';
 //const mongoose = require('mongoose');
