@@ -1,73 +1,29 @@
-//import gql from 'graphql';
+import { gql } from 'graphql-tag';
 
-import { gql } from 'apollo-server-express';
+export const typeDefs = gql`
+  type Profile {
+    id: ID!
+    username: String!
+    name: String!
+    email: String!
+  }
 
-const typeDefs = gql `
-    type Profile {
-        id: ID!
-        username: String!
-        email: String!
-        password: String!
-        pets: [Pet]
-    }
+  type Pet {
+    id: ID!
+    name: String!
+    type: String!
+    breed: String!
+    age: Int!
+    owner: Profile!
+  }
 
-    type Pet {
-        id: ID!
-        name: String!
-        owner: Profile
-        calendar: Calendar
-    }
+  type Query {
+    profiles: [Profile]
+    pets: [Pet]
+  }
 
-    type Calendar {
-        id: ID!
-        events: [Event]
-    }
-
-    type Event {
-        id: ID!
-        googleEventId: String!
-        title: String!
-        description: String
-        start: String!
-        end: String!
-    }
-
-    type Auth {
-        token: String!
-        profile: Profile!
-    }
-
-    input EventInput {
-        title: String!
-        description: String
-        start: String!
-        end: String!
-    }
-
-    input PetInput {
-        name: String!
-        owner: ID
-    }
-
-    type Query {
-        profiles: [Profile]
-        profile(username: String!): Profile
-        pets(owner: ID): [Pet]
-        pet(_id: ID!): Pet
-        me: Profile
-        getAuthUrl: String
-    }
-
-    type Mutation {
-        createPet(petData: PetInput): Pet
-        addEvent(calendarId: ID!, eventData: EventInput): Event
-        removeEvent(calendarId: ID!, eventId: ID!): Boolean
-        removePet(_id: ID!): Boolean
-        removeProfile: Boolean
-        addProfile(username: String!, email: String!, password: String!): Auth
-        login(email: String!, password: String!): Auth
-        handleOAuth2Callback(code: String!): String
-    }
+  type Mutation {
+    addProfile(username: String!, name: String!, email: String!): Profile
+    addPet(name: String!, type: String!, breed: String!, age: Int!, ownerId: ID!): Pet
+  }
 `;
-
-export default typeDefs;
